@@ -1,0 +1,17 @@
+# Ignorar dependências
+backend/node_modules/
+frontend/node_modules/
+
+# Ignorar arquivos de build/distribuição
+frontend/dist/
+frontend/.output/
+
+# Ignorar arquivos de log
+*.log
+
+# Ignorar arquivos de variáveis de ambiente (MUITO IMPORTANTE)
+backend/.env
+
+# Ignorar arquivos do sistema operacional e de IDEs
+.DS_Store
+.vscode/
