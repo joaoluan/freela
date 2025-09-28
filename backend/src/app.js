@@ -6,12 +6,22 @@ const cors = require('cors');
 const app = express();
 app.use(express.json());// Permite que o Express entenda JSON no corpo das requisições
 
+const db = require("./models"); // Importa o objeto db que contém os modelos e a conexão com o banco
+db.sequelize.sync()
+.then(() => {
+    console.log("✅ Banco de dados sincronizado.");
+  })
+.catch((err) => {
+    console.log("❌ Falha ao sincronizar o banco de dados: " + err.message);
+  }); // Sincroniza os modelos com o banco de dados
+
 // 3. Definir a porta em que o servidor vai rodar
 // Usamos 3000 ou 3001 para o backend. O frontend geralmente roda na 8080 ou 5173.
 app.use(cors({
     origin: 'http://localhost:5173' // URL do frontend
 }));
 const PORT = 3001;
+
 // 4. Criar uma rota de teste para ver se tudo está funcionando
 // Quando alguém acessar a rota principal ("/") do nosso backend...
 app.get('/', (req, res) => {
