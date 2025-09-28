@@ -9,7 +9,7 @@ app.use(express.json());// Permite que o Express entenda JSON no corpo das requi
 // 3. Definir a porta em que o servidor vai rodar
 // Usamos 3000 ou 3001 para o backend. O frontend geralmente roda na 8080 ou 5173.
 app.use(cors({
-    origin: 'http://localhost:5173' // Substitua pela URL do seu frontend
+    origin: 'http://localhost:5173' // URL do frontend
 }));
 const PORT = 3001;
 // 4. Criar uma rota de teste para ver se tudo está funcionando
