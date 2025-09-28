@@ -1,13 +1,16 @@
+// Carrega as variáveis do arquivo.env para process.env
+require('dotenv').config();
+
 module.exports = {
-  HOST: "localhost",
-  USER: "postgres", // O usuário padrão do Postgres
-  PASSWORD: "Gul9314*", // A senha que você criou na instalação
-  DB: "plataforma_freela_db", // O nome do banco de dados que criamos
+  HOST: process.env.DB_HOST,
+  USER: process.env.DB_USER,
+  PASSWORD: process.env.DB_PASSWORD,
+  DB: process.env.DB_NAME,
   dialect: "postgres",
   pool: {
-    max: 5,   // Máximo de conexões no pool
-    min: 0,   // Mínimo de conexões no pool
-    acquire: 30000, // Tempo máximo (ms) para tentar obter uma conexão
-    idle: 10000     // Tempo máximo (ms) que uma conexão pode ficar ociosa
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000
   }
 };

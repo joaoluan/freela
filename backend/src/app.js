@@ -1,9 +1,10 @@
-// 1. Importar o módulo Express
-const express = require('express');
-// Importa o middleware CORS
-const cors = require('cors'); 
-// 2. Criar uma instância do aplicativo Express
-const app = express();
+require('dotenv').config(); //Carrega as variáveis do arquivo .env
+
+const express = require('express'); //Importa o framework Express
+
+const cors = require('cors'); // Importa o middleware CORS para permitir requisições entre diferentes origens
+
+const app = express(); // Cria uma aplicação Express
 app.use(express.json());// Permite que o Express entenda JSON no corpo das requisições
 
 const db = require("./models"); // Importa o objeto db que contém os modelos e a conexão com o banco

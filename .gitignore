@@ -15,3 +15,5 @@ backend/.env
 # Ignorar arquivos do sistema operacional e de IDEs
 .DS_Store
 .vscode/
+# Ignorar arquivos de variáveis de ambiente (MUITO IMPORTANTE)
+backend/.env
