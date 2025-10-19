@@ -1,7 +1,9 @@
 import { useInView } from "../hooks/useInView"
+import { useNavigate } from "react-router-dom"
 
 function Hero() {
   const [ref, isVisible] = useInView({ threshold: 0.2 })
+  const navigate = useNavigate()
 
   return (
     <section
@@ -20,10 +22,16 @@ function Hero() {
         </p>
 
         <div className="fade-item flex flex-col md:flex-row gap-4 justify-center">
-          <button className="btn-shine bg-white text-gray-900 font-semibold px-6 py-3 rounded-lg shadow-md hover:bg-gray-100 transition">
+          <button
+            onClick={() => navigate("/register/restaurante")}
+            className="btn-shine bg-white text-gray-900 font-semibold px-6 py-3 rounded-lg shadow-md hover:bg-gray-100 transition"
+          >
             Sou Restaurante
           </button>
-          <button className="btn-shine bg-teal-600 text-white font-semibold px-6 py-3 rounded-lg shadow-md hover:bg-teal-700 transition">
+          <button
+            onClick={() => navigate("/register/freelancer")}
+            className="btn-shine bg-teal-600 text-white font-semibold px-6 py-3 rounded-lg shadow-md hover:bg-teal-700 transition"
+          >
             Sou Freelancer
           </button>
         </div>
