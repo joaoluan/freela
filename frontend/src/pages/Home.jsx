@@ -5,9 +5,17 @@ import Benefits from "../components/Benefits"
 function Home() {
   return (
     <main className="snap-y snap-mandatory snap-always overflow-y-scroll scroll-smooth h-screen bg-gray-50 dark:bg-gray-900">
-      <Hero />
-      <HowItWorks />
-      <Benefits />
+      <section className="snap-start">
+        <Hero />
+      </section>
+
+      <section className="snap-start">
+        <HowItWorks />
+      </section>
+
+      <section className="snap-start">
+        <Benefits />
+      </section>
     </main>
   )
 }

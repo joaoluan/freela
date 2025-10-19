@@ -4,9 +4,24 @@ function HowItWorks() {
   const [ref, isVisible] = useInView({ threshold: 0.2 })
 
   const steps = [
-    { passo: 1, titulo: "Crie sua conta", descricao: "Cadastre-se gratuitamente." },
-    { passo: 2, titulo: "Publique ou busque vagas", descricao: "Conecte talentos e oportunidades." },
-    { passo: 3, titulo: "Conecte-se e trabalhe", descricao: "Combine os detalhes e comece." },
+    {
+      passo: 1,
+      titulo: "Crie sua conta",
+      descricao:
+        "Restaurantes e freelancers se cadastram de forma simples e gratuita.",
+    },
+    {
+      passo: 2,
+      titulo: "Publique ou busque vagas",
+      descricao:
+        "Restaurantes anunciam oportunidades e freelancers encontram trabalhos.",
+    },
+    {
+      passo: 3,
+      titulo: "Conecte-se e trabalhe",
+      descricao:
+        "Ambos se comunicam e iniciam o trabalho com transparência e segurança.",
+    },
   ]
 
   return (
@@ -35,7 +50,9 @@ function HowItWorks() {
               <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2">
                 {step.titulo}
               </h3>
-              <p className="text-gray-600 dark:text-gray-300">{step.descricao}</p>
+              <p className="text-gray-600 dark:text-gray-300">
+                {step.descricao}
+              </p>
             </div>
           ))}
         </div>

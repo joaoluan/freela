@@ -8,22 +8,15 @@ function Header() {
   const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen)
   const handleLinkClick = () => setMobileMenuOpen(false)
 
+  // Detecta rolagem para aplicar fundo sólido no header
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20)
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20)
+    }
+
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
-
-  const linkProps = {
-    smooth: true,
-    duration: 600,
-    offset: -80, // Corrige o deslocamento por causa do header fixo
-    spy: true,
-    activeClass: "active-link",
-    className:
-      "nav-link text-gray-700 dark:text-gray-200 text-lg md:text-base hover:text-teal-600 dark:hover:text-teal-400 transition",
-    onClick: handleLinkClick,
-  }
 
   return (
     <header
@@ -45,13 +38,42 @@ function Header() {
             mobileMenuOpen ? "flex" : "hidden"
           } md:flex flex-col md:flex-row items-center gap-6 absolute md:static top-16 left-0 right-0 bg-white/95 dark:bg-gray-900/95 md:bg-transparent p-6 md:p-0 shadow-lg md:shadow-none rounded-xl md:rounded-none backdrop-blur-md transition-all`}
         >
-          <Link to="como-funciona" {...linkProps}>
+          <Link
+            to="como-funciona"
+            smooth={true}
+            duration={600}
+            offset={-120}
+            spy={true}
+            activeClass="active-link"
+            className="nav-link text-gray-700 dark:text-gray-200 text-lg md:text-base hover:text-teal-600 dark:hover:text-teal-400 transition"
+            onClick={handleLinkClick}
+          >
             Como Funciona
           </Link>
-          <Link to="restaurantes" {...linkProps}>
+
+          <Link
+            to="restaurantes"
+            smooth={true}
+            duration={600}
+            offset={-120}
+            spy={true}
+            activeClass="active-link"
+            className="nav-link text-gray-700 dark:text-gray-200 text-lg md:text-base hover:text-teal-600 dark:hover:text-teal-400 transition"
+            onClick={handleLinkClick}
+          >
             Para Restaurantes
           </Link>
-          <Link to="freelancers" {...linkProps}>
+
+          <Link
+            to="freelancers"
+            smooth={true}
+            duration={600}
+            offset={-120}
+            spy={true}
+            activeClass="active-link"
+            className="nav-link text-gray-700 dark:text-gray-200 text-lg md:text-base hover:text-teal-600 dark:hover:text-teal-400 transition"
+            onClick={handleLinkClick}
+          >
             Para Freelancers
           </Link>
 
@@ -76,7 +98,7 @@ function Header() {
           </button>
         </div>
 
-        {/* Botão Menu Mobile */}
+        {/* Menu Mobile (hambúrguer) */}
         <button
           className="md:hidden flex flex-col gap-1 focus:outline-none"
           onClick={toggleMobileMenu}
