@@ -1,42 +1,195 @@
+/**
+ * =============================================================================
+ * IMPORTS DO TAILWIND
+ * =============================================================================
+ * Camadas base do Tailwind.
+ */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-html {
-  scroll-behavior: smooth;
+/**
+ * =============================================================================
+ * CAMADA BASE (Base Styles & Design Tokens)
+ * =============================================================================
+ * Aqui definimos:
+ * 1. Nossas variáveis de cores (Design Tokens) para Light e Dark mode.
+ * 2. Estilos globais para elementos HTML (html, body, ::selection).
+ */
+@layer base {
+  /* * 1. DESIGN TOKENS (VARIÁVEIS CSS)
+   * Usamos HSL (Hue, Saturation, Lightness) para facilitar a criação
+   * de variações (ex: cores de hover).
+   */
+  :root {
+    /* Cores da Marca */
+    --color-primary-hue: 160; /* Tom (HUE) do seu "Teal" */
+    --color-primary-saturation: 70%;
+    --color-primary-lightness: 40%;
+    --color-primary: hsl(
+      var(--color-primary-hue),
+      var(--color-primary-saturation),
+      var(--color-primary-lightness)
+    );
+    --color-primary-hover: hsl(
+      var(--color-primary-hue),
+      var(--color-primary-saturation),
+      35% /* Mais escuro no hover */
+    );
+    --color-primary-light: hsl(
+      var(--color-primary-hue),
+      var(--color-primary-saturation),
+      95% /* Fundo de botões "outline" */
+    );
+
+    /* Cores de Fundo e Texto (Light Mode) */
+    --color-bg: theme(colors.gray.50); /* #f9fafb */
+    --color-bg-card: theme(colors.white);
+    --color-text: theme(colors.gray.800);
+    --color-text-muted: theme(colors.gray.500);
+    --color-border: theme(colors.gray.200);
+  }
+
+  .dark {
+    /* Cores de Fundo e Texto (Dark Mode) */
+    --color-bg: theme(colors.gray.900);
+    --color-bg-card: theme(colors.gray.800);
+    --color-text: theme(colors.gray.100);
+    --color-text-muted: theme(colors.gray.400);
+    --color-border: theme(colors.gray.700);
+
+    /* Ajuste da primária para melhor contraste no escuro */
+    --color-primary-lightness: 50%;
+    --color-primary-hover: hsl(
+      var(--color-primary-hue),
+      var(--color-primary-saturation),
+      45%
+    );
+  }
+
+  /* * 2. ESTILOS GLOBAIS
+   */
+  html {
+    @apply scroll-smooth;
+    /* Melhora a renderização das fontes */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    /* Aplicando nossas variáveis */
+    @apply min-h-screen antialiased;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+  }
+
+  /* Um toque "chique": estilizar o texto selecionado */
+  ::selection {
+    background-color: var(--color-primary);
+    color: white;
+  }
 }
 
-.fade-in {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.6s ease-out;
-}
-.fade-in.show {
-  opacity: 1;
-  transform: translateY(0);
+/**
+ * =============================================================================
+ * CAMADA DE COMPONENTES (Classes de Componentes Reutilizáveis)
+ * =============================================================================
+ * Classes personalizadas que usam @apply para se manter
+ * consistentes com os tokens do Tailwind.
+ */
+@layer components {
+  /*
+   * Efeito de hover sutil para cards
+   * (Usando @apply para manter consistência com os valores do Tailwind)
+   */
+  .card-hover {
+    @apply relative overflow-hidden transition-all duration-300 ease-out;
+  }
+  .card-hover:hover {
+    @apply scale-[1.02] shadow-lg;
+    /* Sombra colorida sutil da cor da marca */
+    box-shadow: 0 10px 15px -3px hsla(var(--color-primary-hue), 50%, 50%, 0.05),
+      0 4px 6px -4px hsla(var(--color-primary-hue), 50%, 50%, 0.05);
+  }
+
+  /*
+   * Efeito "Shine" (Brilho) REAL para botões
+   * (Seu .btn-shine agora faz jus ao nome!)
+   */
+  .btn-shine {
+    @apply relative overflow-hidden transition-all duration-300 ease-out;
+  }
+  .btn-shine:hover {
+    @apply scale-[1.01] shadow-md;
+  }
+  
+  /* O efeito de brilho */
+  .btn-shine::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -150%; /* Começa fora da tela */
+    width: 100%;
+    height: 100%;
+    
+    /* Um gradiente de brilho angular */
+    background: linear-gradient(
+      100deg,
+      rgba(255, 255, 255, 0) 10%,
+      rgba(255, 255, 255, 0.4) 50%,
+      rgba(255, 255, 255, 0) 90%
+    );
+    
+    transform: skewX(-20deg); /* Inclina o brilho */
+    transition: left 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .btn-shine:hover::after {
+    left: 150%; /* Move o brilho para o outro lado */
+  }
+
+  /*
+   * Estilo para o link ativo do react-scroll
+   */
+  .active-link {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
 }
 
-.fade-item {
-  opacity: 0;
-  transform: translateY(20px) scale(0.97);
-  transition: all 0.6s ease-out;
-}
-.show .fade-item {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
+/**
+ * =============================================================================
+ * CAMADA DE UTILITÁRIOS (Classes de Animação e Helpers)
+ * =============================================================================
+ * Suas classes de fade-in. Elas são utilitários, então ficam aqui.
+ */
+@layer utilities {
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); /* Curva de "ease-out" mais suave */
+  }
+  .fade-in.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
 
-.card-hover {
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.card-hover:hover {
-  transform: scale(1.03);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-}
+  .fade-item {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+    transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+  .show .fade-item {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 
-.btn-shine:hover {
-  transform: scale(1.03);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  /*
+   * Helper de Acessibilidade (BÔNUS)
+   * Isso melhora o "outline" de foco para quem navega com teclado,
+   * sem mostrá-lo para quem usa o mouse.
+   */
+  .focusable-ring {
+    @apply focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:ring-blue-500 dark:focus-visible:ring-offset-gray-900;
+  }
 }
