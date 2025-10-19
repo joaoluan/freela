@@ -4,7 +4,10 @@ import Benefits from "../components/Benefits"
 
 function Home() {
   return (
-    <main className="snap-y snap-mandatory snap-always overflow-y-scroll scroll-smooth h-screen bg-gray-50 dark:bg-gray-900">
+    <main
+      id="main-content" // <-- ALTERAÇÃO AQUI
+      className="snap-y snap-mandatory snap-always overflow-y-scroll scroll-smooth h-screen bg-gray-50 dark:bg-gray-900"
+    >
       <section className="snap-start">
         <Hero />
       </section>

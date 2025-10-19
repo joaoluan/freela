@@ -40,12 +40,13 @@ function Header() {
         >
           <Link
             to="como-funciona"
+            containerId="main-content"
             smooth={true}
             duration={600}
             offset={-120}
             spy={true}
             activeClass="active-link"
-            className="nav-link text-gray-700 dark:text-gray-200 text-lg md:text-base hover:text-teal-600 dark:hover:text-teal-400 transition"
+            className="nav-link text-gray-700 dark:text-gray-200 text-lg md:text-base hover:text-teal-600 dark:hover:text-teal-400 transition cursor-pointer" // <-- ALTERAÇÃO AQUI
             onClick={handleLinkClick}
           >
             Como Funciona
@@ -53,12 +54,13 @@ function Header() {
 
           <Link
             to="restaurantes"
+            containerId="main-content"
             smooth={true}
             duration={600}
             offset={-120}
             spy={true}
             activeClass="active-link"
-            className="nav-link text-gray-700 dark:text-gray-200 text-lg md:text-base hover:text-teal-600 dark:hover:text-teal-400 transition"
+            className="nav-link text-gray-700 dark:text-gray-200 text-lg md:text-base hover:text-teal-600 dark:hover:text-teal-400 transition cursor-pointer" // <-- ALTERAÇÃO AQUI
             onClick={handleLinkClick}
           >
             Para Restaurantes
@@ -66,12 +68,13 @@ function Header() {
 
           <Link
             to="freelancers"
+            containerId="main-content"
             smooth={true}
             duration={600}
             offset={-120}
             spy={true}
             activeClass="active-link"
-            className="nav-link text-gray-700 dark:text-gray-200 text-lg md:text-base hover:text-teal-600 dark:hover:text-teal-400 transition"
+            className="nav-link text-gray-700 dark:text-gray-200 text-lg md:text-base hover:text-teal-600 dark:hover:text-teal-400 transition cursor-pointer" // <-- ALTERAÇÃO AQUI
             onClick={handleLinkClick}
           >
             Para Freelancers
