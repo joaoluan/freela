@@ -1,6 +1,8 @@
 import Hero from "../components/Hero"
 import HowItWorks from "../components/HowItWorks"
-import { BenefitsRestaurantes, BenefitsFreelancers, BenefitsCTA } from "../components/Benefits"
+import { BenefitsRestaurantes, BenefitsFreelancers } from "../components/Benefits"
+import CTA from "../components/CTA"
+import Footer from "../components/Footer"
 
 function Home() {
   return (
@@ -13,24 +15,33 @@ function Home() {
         <Hero />
       </section>
 
-      {/* Como Funciona (id no wrapper!) */}
+      {/* Como Funciona */}
       <section className="snap-start" id="como-funciona">
         <HowItWorks />
       </section>
 
-      {/* Restaurantes (id no wrapper, filho direto do container) */}
+      {/* Restaurantes */}
       <section className="snap-start" id="restaurantes">
         <BenefitsRestaurantes />
       </section>
 
-      {/* Freelancers (id no wrapper, filho direto do container) */}
+      {/* Freelancers */}
       <section className="snap-start" id="freelancers">
         <BenefitsFreelancers />
       </section>
 
-      {/* CTA final (snap opcional) */}
-      <section className="snap-start">
-        <BenefitsCTA />
+      {/* CTA + Footer — ocupa 100% da viewport */}
+      <section
+        id="cta-footer"
+        className="snap-start h-screen flex flex-col bg-gradient-to-br from-gray-900 via-gray-800 to-teal-700"
+      >
+        {/* CTA centralizado verticalmente */}
+        <div className="flex-1 flex items-center justify-center">
+          <CTA />
+        </div>
+
+        {/* Footer fixado na base */}
+        <Footer />
       </section>
     </main>
   )

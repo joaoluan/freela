@@ -12,8 +12,10 @@ function HowItWorks() {
   return (
     <section
       ref={ref}
-      className={`snap-start fade-in ${isVisible ? "show" : ""} bg-gray-50 dark:bg-gray-900 h-screen flex flex-col justify-center px-4`}
-    >
+      className={`snap-start fade-in ${isVisible ? "show" : ""} 
+      bg-gradient-to-br from-gray-900 via-gray-800 to-teal-700 text-white h-screen flex flex-col justify-center px-4`}
+    > 
+
       <div className="max-w-6xl mx-auto text-center">
         <h2 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-gray-100 mb-14">Como funciona</h2>
         <div className="grid md:grid-cols-3 gap-10">
