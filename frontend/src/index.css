@@ -2,7 +2,6 @@
  * =============================================================================
  * IMPORTS DO TAILWIND
  * =============================================================================
- * Camadas base do Tailwind.
  */
 @tailwind base;
 @tailwind components;
@@ -10,40 +9,18 @@
 
 /**
  * =============================================================================
- * CAMADA BASE (Base Styles & Design Tokens)
+ * CAMADA BASE (Design Tokens e Globais)
  * =============================================================================
- * Aqui definimos:
- * 1. Nossas variáveis de cores (Design Tokens) para Light e Dark mode.
- * 2. Estilos globais para elementos HTML (html, body, ::selection).
  */
 @layer base {
-  /* * 1. DESIGN TOKENS (VARIÁVEIS CSS)
-   * Usamos HSL (Hue, Saturation, Lightness) para facilitar a criação
-   * de variações (ex: cores de hover).
-   */
   :root {
-    /* Cores da Marca */
-    --color-primary-hue: 160; /* Tom (HUE) do seu "Teal" */
+    --color-primary-hue: 160;
     --color-primary-saturation: 70%;
     --color-primary-lightness: 40%;
-    --color-primary: hsl(
-      var(--color-primary-hue),
-      var(--color-primary-saturation),
-      var(--color-primary-lightness)
-    );
-    --color-primary-hover: hsl(
-      var(--color-primary-hue),
-      var(--color-primary-saturation),
-      35% /* Mais escuro no hover */
-    );
-    --color-primary-light: hsl(
-      var(--color-primary-hue),
-      var(--color-primary-saturation),
-      95% /* Fundo de botões "outline" */
-    );
-
-    /* Cores de Fundo e Texto (Light Mode) */
-    --color-bg: theme(colors.gray.50); /* #f9fafb */
+    --color-primary: hsl(var(--color-primary-hue), var(--color-primary-saturation), var(--color-primary-lightness));
+    --color-primary-hover: hsl(var(--color-primary-hue), var(--color-primary-saturation), 35%);
+    --color-primary-light: hsl(var(--color-primary-hue), var(--color-primary-saturation), 95%);
+    --color-bg: theme(colors.gray.50);
     --color-bg-card: theme(colors.white);
     --color-text: theme(colors.gray.800);
     --color-text-muted: theme(colors.gray.500);
@@ -51,39 +28,27 @@
   }
 
   .dark {
-    /* Cores de Fundo e Texto (Dark Mode) */
     --color-bg: theme(colors.gray.900);
     --color-bg-card: theme(colors.gray.800);
     --color-text: theme(colors.gray.100);
     --color-text-muted: theme(colors.gray.400);
     --color-border: theme(colors.gray.700);
-
-    /* Ajuste da primária para melhor contraste no escuro */
     --color-primary-lightness: 50%;
-    --color-primary-hover: hsl(
-      var(--color-primary-hue),
-      var(--color-primary-saturation),
-      45%
-    );
+    --color-primary-hover: hsl(var(--color-primary-hue), var(--color-primary-saturation), 45%);
   }
 
-  /* * 2. ESTILOS GLOBAIS
-   */
   html {
     @apply scroll-smooth;
-    /* Melhora a renderização das fontes */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   body {
-    /* Aplicando nossas variáveis */
     @apply min-h-screen antialiased;
     background-color: var(--color-bg);
     color: var(--color-text);
   }
 
-  /* Um toque "chique": estilizar o texto selecionado */
   ::selection {
     background-color: var(--color-primary);
     color: white;
@@ -92,65 +57,45 @@
 
 /**
  * =============================================================================
- * CAMADA DE COMPONENTES (Classes de Componentes Reutilizáveis)
+ * CAMADA DE COMPONENTES (Reutilizáveis)
  * =============================================================================
- * Classes personalizadas que usam @apply para se manter
- * consistentes com os tokens do Tailwind.
  */
 @layer components {
-  /*
-   * Efeito de hover sutil para cards
-   * (Usando @apply para manter consistência com os valores do Tailwind)
-   */
   .card-hover {
     @apply relative overflow-hidden transition-all duration-300 ease-out;
   }
   .card-hover:hover {
     @apply scale-[1.02] shadow-lg;
-    /* Sombra colorida sutil da cor da marca */
     box-shadow: 0 10px 15px -3px hsla(var(--color-primary-hue), 50%, 50%, 0.05),
-      0 4px 6px -4px hsla(var(--color-primary-hue), 50%, 50%, 0.05);
+                0 4px 6px -4px hsla(var(--color-primary-hue), 50%, 50%, 0.05);
   }
 
-  /*
-   * Efeito "Shine" (Brilho) REAL para botões
-   * (Seu .btn-shine agora faz jus ao nome!)
-   */
   .btn-shine {
     @apply relative overflow-hidden transition-all duration-300 ease-out;
   }
   .btn-shine:hover {
     @apply scale-[1.01] shadow-md;
   }
-  
-  /* O efeito de brilho */
   .btn-shine::after {
     content: "";
     position: absolute;
     top: 0;
-    left: -150%; /* Começa fora da tela */
+    left: -150%;
     width: 100%;
     height: 100%;
-    
-    /* Um gradiente de brilho angular */
     background: linear-gradient(
       100deg,
       rgba(255, 255, 255, 0) 10%,
       rgba(255, 255, 255, 0.4) 50%,
       rgba(255, 255, 255, 0) 90%
     );
-    
-    transform: skewX(-20deg); /* Inclina o brilho */
+    transform: skewX(-20deg);
     transition: left 0.7s cubic-bezier(0.23, 1, 0.32, 1);
   }
-
   .btn-shine:hover::after {
-    left: 150%; /* Move o brilho para o outro lado */
+    left: 150%;
   }
 
-  /*
-   * Estilo para o link ativo do react-scroll
-   */
   .active-link {
     color: var(--color-primary);
     font-weight: 600;
@@ -159,61 +104,182 @@
 
 /**
  * =============================================================================
- * CAMADA DE UTILITÁRIOS (Classes de Animação e Helpers)
+ * KEYFRAMES GLOBAIS (Antes dos Utilities)
  * =============================================================================
- * Suas classes de fade-in. Elas são utilitários, então ficam aqui.
  */
-@layer utilities {
-  .fade-in {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); /* Curva de "ease-out" mais suave */
-  }
-  .fade-in.show {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .fade-item {
-    opacity: 0;
-    transform: translateY(20px) scale(0.98);
-    transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
-  }
-  .show .fade-item {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-
-  /*
-   * Helper de Acessibilidade (BÔNUS)
-   * Isso melhora o "outline" de foco para quem navega com teclado,
-   * sem mostrá-lo para quem usa o mouse.
-   */
-  .focusable-ring {
-    @apply focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:ring-blue-500 dark:focus-visible:ring-offset-gray-900;
-  }
-}
 @keyframes gradientMove {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
 
-.animate-gradient {
-  background-size: 200% 200%;
-  animation: gradientMove 8s ease infinite;
-}
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-border {
+  0%, 100% { opacity: 0.2; transform: scaleX(1); }
+  50% { opacity: 0.8; transform: scaleX(1.05); }
+}
+
+@keyframes border-glow-move {
+  0% { background-position: 200% 0; opacity: 0.3; }
+  50% { opacity: 0.8; }
+  100% { background-position: -200% 0; opacity: 0.3; }
+}
+
+@keyframes shine-text {
+  0% { background-position: -100%; }
+  100% { background-position: 200%; }
+}
+
+/**
+ * =============================================================================
+ * CAMADA DE UTILITÁRIOS (Helpers, Animações e Nav Links)
+ * =============================================================================
+ */
+@layer utilities {
+  .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); }
+  .fade-in.show { opacity: 1; transform: translateY(0); }
+
+  .fade-item { opacity: 0; transform: translateY(20px) scale(0.98); transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1); }
+  .show .fade-item { opacity: 1; transform: translateY(0) scale(1); }
+
+  .focusable-ring {
+    @apply focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:ring-blue-500 dark:focus-visible:ring-offset-gray-900;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  .animate-gradient { background-size: 200% 200%; animation: gradientMove 8s ease infinite; }
+  .animate-fadeIn { animation: fadeIn 0.8s ease forwards; }
+  .animate-border-glow { animation: pulse-border 4s ease-in-out infinite; }
+  .animate-border-sweep { background-size: 200% 100%; animation: border-glow-move 8s linear infinite; }
+
+  /* 🔹 Nav Links animados */
+  .nav-link-animate {
+    position: relative;
+    display: inline-block;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  @keyframes underlineFlow {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+  .nav-link-animate::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(90deg, #14b8a6, #5eead4, #14b8a6);
+  background-size: 200% 100%;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+  .active-link::after {
+  width: 100%;
+  animation: underlineFlow 6s linear infinite;
+}
+
+  .nav-link-animate:hover::after {
+  width: 100%;
+  animation: underlineFlow 4s linear infinite;
+}
+
+  .nav-link-animate:hover {
+    background: linear-gradient(90deg, #14b8a6, #5eead4, #14b8a6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transform: translateY(-1px);
+    text-shadow: 0 0 6px rgba(94, 234, 212, 0.3);
+  }
+  .nav-link-animate:hover::after { width: 100%; }
+  .nav-link-animate:active { transform: scale(0.97); }
+  /* ✨ Shine horizontal em textos */
+@keyframes textShine {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
   }
 }
 
-.animate-fadeIn {
-  animation: fadeIn 0.8s ease forwards;
+.text-shine {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.6) 50%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textShine 5s linear infinite;
+}
+
+.text-shine-on-hover {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 0.4s ease;
+}
+
+.text-shine-on-hover:hover {
+  animation: textShine 3s linear infinite;
+}
+/* ✨ Shine gaúcho com fade-in na entrada (verde, vermelho e amarelo suaves) */
+@keyframes text-shine-rs {
+  0% {
+    background-position: -150% center;
+  }
+  100% {
+    background-position: 150% center;
+  }
+}
+
+/* Nova animação: fade-in antes do brilho começar */
+@keyframes fadeInTextRS {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.text-shine-rs {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 107, 63, 0.25),
+    rgba(200, 16, 46, 0.4),
+    rgba(255, 215, 0, 0.35),
+    rgba(0, 107, 63, 0.25)
+  );
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  /* Animações combinadas */
+  animation:
+    fadeInTextRS 1.8s ease-out forwards,
+    text-shine-rs 9s ease-in-out infinite;
+  animation-delay: 0s, 1.8s; /* brilho começa depois do fade-in */
+
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.1);
+  display: inline-block;
+}
 }
