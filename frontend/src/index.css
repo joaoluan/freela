@@ -53,10 +53,6 @@
     background-color: var(--color-primary);
     color: white;
   }
-  .page-content {
-  padding-top: 6rem; /* ajuste conforme o header */
-  }
-
 }
 
 /**
